@@ -1,0 +1,21 @@
+{
+  "name": "Feras CV ATS | تصميم سيرة ذاتية احترافية",
+  "short_name": "Feras CV ATS",
+  "description": "تصميم سيرة ذاتية احترافية متوافقة مع أنظمة ATS باللغتين العربية والإنجليزية مع الاستشاري فراس عبد اللطيف",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#1e40af",
+  "dir": "rtl",
+  "lang": "ar",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "192x192 512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["business", "productivity", "utilities"]
+}
