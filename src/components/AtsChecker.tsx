@@ -10,10 +10,10 @@ import {
   MessageCircle,
   RefreshCw
 } from 'lucide-react';
-import { WHATSAPP_NUMBER } from '../data/packages';
+import { AtsCheckResult } from '../types';
 
 interface AtsCheckerProps {
-  onPreFillOrder: (jobTitle: string, notes: string) => void;
+  onPreFillOrder: (result: AtsCheckResult) => void;
 }
 
 export const AtsChecker: React.FC<AtsCheckerProps> = ({ onPreFillOrder }) => {
@@ -96,8 +96,12 @@ export const AtsChecker: React.FC<AtsCheckerProps> = ({ onPreFillOrder }) => {
   };
 
   const handleSendToFeras = () => {
-    const summary = `نتائج فحص ATS لسيرتي الذاتية:%0A- المسمى: ${jobTitle || 'غير محدد'}%0A- التقييم الأولي: ${score}%25%0A- الملاحظات: يرغب بتحسين الصياغة والتنسيق مع الأستاذ فراس`;
-    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${summary}`, '_blank');
+    onPreFillOrder({
+      jobTitle: jobTitle.trim() || 'غير محدد',
+      score,
+      feedback,
+      detectedKeywords
+    });
   };
 
   return (
@@ -306,7 +310,7 @@ export const AtsChecker: React.FC<AtsCheckerProps> = ({ onPreFillOrder }) => {
                   className="flex-1 py-3.5 px-6 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm shadow-lg shadow-emerald-600/30 flex items-center justify-center gap-2 transition-all"
                 >
                   <MessageCircle className="w-4 h-4 fill-white" />
-                  <span>إرسال هذه الملاحظات للأستاذ فراس عبر واتساب</span>
+                  <span>إرفاق نتيجة الفحص بنموذج طلب واتساب</span>
                 </button>
 
                 <button

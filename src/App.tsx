@@ -19,9 +19,11 @@ import { Footer } from './components/Footer';
 import { FloatingWhatsApp } from './components/FloatingWhatsApp';
 import { SamplePreviewModal } from './components/SamplePreviewModal';
 import { InstallAppModal } from './components/InstallAppModal';
+import { AtsCheckResult } from './types';
 
 export default function App() {
   const [selectedPackageId, setSelectedPackageId] = useState<string>('standard');
+  const [atsCheckResult, setAtsCheckResult] = useState<AtsCheckResult | null>(null);
   const [isSampleModalOpen, setIsSampleModalOpen] = useState<boolean>(false);
   const [isInstallModalOpen, setIsInstallModalOpen] = useState<boolean>(false);
 
@@ -50,7 +52,8 @@ export default function App() {
     setIsInstallModalOpen(true);
   };
 
-  const handlePreFillFromChecker = (jobTitle: string, notes: string) => {
+  const handlePreFillFromChecker = (result: AtsCheckResult) => {
+    setAtsCheckResult(result);
     handleScrollToOrder();
   };
 
@@ -98,6 +101,7 @@ export default function App() {
         {/* Order Form & WhatsApp Message Generator */}
         <OrderForm 
           initialPackageId={selectedPackageId}
+          atsCheckResult={atsCheckResult}
         />
 
         {/* About Consultant Feras Abdellatif */}
