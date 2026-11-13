@@ -16,13 +16,14 @@ import {
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { PRICING_PACKAGES, WHATSAPP_NUMBER, WHATSAPP_DISPLAY } from '../data/packages';
-import { OrderFormData, CvLanguage, ExperienceLevel } from '../types';
+import { AtsCheckResult, OrderFormData, CvLanguage, ExperienceLevel } from '../types';
 
 interface OrderFormProps {
   initialPackageId?: string;
+  atsCheckResult?: AtsCheckResult | null;
 }
 
-export const OrderForm: React.FC<OrderFormProps> = ({ initialPackageId = 'standard' }) => {
+export const OrderForm: React.FC<OrderFormProps> = ({ initialPackageId = 'standard', atsCheckResult }) => {
   const [formData, setFormData] = useState<OrderFormData>({
     fullName: '',
     phone: '',
@@ -81,6 +82,17 @@ export const OrderForm: React.FC<OrderFormProps> = ({ initialPackageId = 'standa
       `🌐 *لغة السيرة الذاتية:* ${getLanguageLabel(formData.language)}\n` +
       `📦 *الباقة المختارة:* ${selectedPackage.name} (${selectedPackage.priceJod} دينار أردني)\n` +
       `📝 *حالة الملف الحالي:* ${getStatusLabel(formData.currentCvStatus)}\n` +
+      (atsCheckResult
+        ? `\n📊 *نتيجة فحص ATS الأولي:*\n` +
+          `- المسمى المستهدف: ${atsCheckResult.jobTitle}\n` +
+          `- التقييم: ${atsCheckResult.score}%\n` +
+          (atsCheckResult.detectedKeywords.length
+            ? `- الكلمات المفتاحية: ${atsCheckResult.detectedKeywords.join('، ')}\n`
+            : '') +
+          (atsCheckResult.feedback.length
+            ? `- فرص التحسين: ${atsCheckResult.feedback.join(' | ')}\n`
+            : '')
+        : '') +
       (formData.additionalNotes.trim() ? `📌 *ملاحظات إضافية:* ${formData.additionalNotes.trim()}\n\n` : `\n`) +
       `يرجى التواصل معي للبدء بالتنفيذ والمراجعة مع الأستاذ فراس.`
     );

@@ -25,6 +25,13 @@ export interface OrderFormData {
   currentCvStatus: 'has_old_cv' | 'from_scratch' | 'need_major_update';
 }
 
+export interface AtsCheckResult {
+  jobTitle: string;
+  score: number;
+  feedback: string[];
+  detectedKeywords: string[];
+}
+
 export interface AtsSample {
   id: string;
   title: string;
